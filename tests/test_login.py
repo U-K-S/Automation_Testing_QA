@@ -15,3 +15,4 @@ def test_invalid_login(driver):
     login_page.open_login_page()
     login_page.login("wrong@example.com", "wrongpass")
     assert "Your email or password is incorrect!" in login_page.get_error_message()
+
