@@ -7,4 +7,4 @@ class LoginLocators:
     password_input = (By.NAME, "password")
     login_button = (By.XPATH, "//button[text()='Login']")
 
-#hi
+#hihi
