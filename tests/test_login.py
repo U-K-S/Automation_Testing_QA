@@ -6,6 +6,12 @@ from utilities.test_data import TestData
 
 def test_valid_login(driver):
     login_page = LoginPage(driver)
-    login_page.open(TestData.base_url + "/login")
+    login_page.open_login_page()
     login_page.login(TestData.valid_email, TestData.valid_password)
-    assert "Logged in as" in driver.page_source
+    assert login_page.is_logged_in()
+
+def test_invalid_login(driver):
+    login_page = LoginPage(driver)
+    login_page.open_login_page()
+    login_page.login("wrong@example.com", "wrongpass")
+    assert "Your email or password is incorrect!" in login_page.get_error_message()
