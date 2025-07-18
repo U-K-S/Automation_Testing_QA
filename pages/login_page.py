@@ -21,3 +21,10 @@ class LoginPage(BasePage):
 
     def is_logged_in(self):
         return self.is_visible(LoginLocators.logged_in_text)
+
+    def logout(self):
+        self.click(LoginLocators.logout_button)
+
+    def is_logged_out(self):
+        return self.is_visible(LoginLocators.login_button)
+
