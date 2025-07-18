@@ -10,4 +10,4 @@ class LoginLocators:
     logged_in_text = (By.XPATH, "//a[contains(text(),'Logged in as')]")
     logout_button = (By.XPATH, "//a[@href='/logout']")
 
-    
+    #hi
