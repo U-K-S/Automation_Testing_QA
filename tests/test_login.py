@@ -24,3 +24,5 @@ def test_logout(driver):
     
     login_page.logout()
     assert "Login to your account" in driver.page_source or driver.current_url.endswith("/login")
+
+
