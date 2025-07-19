@@ -6,23 +6,15 @@ pipeline {
       steps { checkout scm }
     }
 
-    stage('Install & Test') {
+    stage('Test') {
       steps {
         bat encoding: 'UTF-8', script: '''
           @echo off
-          REM — use full path to your Anaconda Python
-          "C:\\Users\\Utkarsh Kumar Singh\\anaconda3\\python.exe" -m pip install --user --upgrade pytest pytest-html
-
-          REM — run pytest via that same interpreter
+          REM Run tests and generate HTML report
           "C:\\Users\\Utkarsh Kumar Singh\\anaconda3\\python.exe" -m pytest --html=report.html
 
-          REM — fail build if any tests fail
-          if ERRORLEVEL 1 (
-            echo ERROR: Some tests failed
-            exit /b 1
-          ) else (
-            echo All tests passed.
-          )
+          REM Fail build if tests failed
+          if ERRORLEVEL 1 exit /b 1
         '''
       }
     }
@@ -33,8 +25,7 @@ pipeline {
       archiveArtifacts artifacts: 'report.html'
     }
     failure {
-      echo 'Build failed—check report.html'
+      echo 'Tests failed—see report.html'
     }
   }
 }
-
