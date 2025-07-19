@@ -3,23 +3,20 @@ pipeline {
 
   stages {
     stage('Checkout') {
-      steps {
-        checkout scm
-      }
+      steps { checkout scm }
     }
 
     stage('Install & Test') {
       steps {
-        // Run Windows batch commands under UTF‑8
         bat encoding: 'UTF-8', script: '''
           @echo off
-          REM 1) Install pytest and HTML plugin
-          python -m pip install --user --upgrade pytest pytest-html
+          REM — use full path to your Anaconda Python
+          "C:\\Users\\Utkarsh Kumar Singh\\anaconda3\\python.exe" -m pip install --user --upgrade pytest pytest-html
 
-          REM 2) Run tests and produce HTML report
-          python -m pytest --html=report.html
+          REM — run pytest via that same interpreter
+          "C:\\Users\\Utkarsh Kumar Singh\\anaconda3\\python.exe" -m pytest --html=report.html
 
-          REM 3) Fail build on any test failures
+          REM — fail build if any tests fail
           if ERRORLEVEL 1 (
             echo ERROR: Some tests failed
             exit /b 1
@@ -33,11 +30,10 @@ pipeline {
 
   post {
     always {
-      // Archive the HTML report so you can download/view it
       archiveArtifacts artifacts: 'report.html'
     }
     failure {
-      echo 'Build failed because tests did not pass.'
+      echo 'Build failed—check report.html'
     }
   }
 }
