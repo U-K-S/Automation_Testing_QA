@@ -47,4 +47,5 @@ pipeline {
       echo 'Build failed—see report.html and junit.xml for details.'
     }
   }
-  
+}
+
