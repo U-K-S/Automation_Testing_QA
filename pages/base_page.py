@@ -1,5 +1,5 @@
 # pages/base_page.py
-
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -25,3 +25,7 @@ class BasePage:
 
     def close(self):
         self.driver.quit()
+
+    def select_dropdown(self, by_locator, visible_text):
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(by_locator))
+        Select(element).select_by_visible_text(visible_text)
