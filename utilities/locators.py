@@ -43,3 +43,14 @@ class SignupLocators:
 class SearchLocators:
     search_input = (By.ID, "search_product")
     search_button = (By.ID, "submit_search")
+
+
+
+
+class CartLocators:
+    product_name = lambda name: (By.XPATH, f"//p[text()='{name}']")
+    add_to_cart_button = lambda name: (By.XPATH, f"//p[text()='{name}']/following::a[text()='Add to cart'][1]")
+    continue_shopping_button = (By.XPATH, "//button[text()='Continue Shopping']")
+    cart_link = (By.XPATH, "//a[contains(text(),'Cart')]")
+    remove_button = (By.CLASS_NAME, "cart_quantity_delete")
+    view_cart_button = (By.XPATH, "//u[text()='View Cart']/parent::a")
