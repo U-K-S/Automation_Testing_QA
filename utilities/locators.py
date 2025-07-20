@@ -39,3 +39,7 @@ class SignupLocators:
 
     create_account_button = (By.XPATH, "//button[text()='Create Account']")
     account_created_message = (By.XPATH, "//b[text()='Account Created!']")
+
+class SearchLocators:
+    search_input = (By.ID, "search_product")
+    search_button = (By.ID, "submit_search")
