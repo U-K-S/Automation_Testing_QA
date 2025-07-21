@@ -54,3 +54,25 @@ class CartLocators:
     cart_link = (By.XPATH, "//a[contains(text(),'Cart')]")
     remove_button = (By.CLASS_NAME, "cart_quantity_delete")
     view_cart_button = (By.XPATH, "//u[text()='View Cart']/parent::a")
+
+class CheckoutLocators:
+    login_nav = (By.XPATH, "//a[@href='/login']")
+    login_email = (By.XPATH, "//input[@data-qa='login-email']")
+    login_password = (By.XPATH, "//input[@data-qa='login-password']")
+    login_button = (By.XPATH, "//button[@data-qa='login-button']")
+
+    add_to_cart_button = lambda name: (By.XPATH, f"//p[text()='{name}']/following-sibling::a")
+    view_cart_button = (By.XPATH, "//u[normalize-space()='View Cart']")
+    proceed_to_checkout_button = (By.XPATH, "//a[contains(text(),'Proceed To Checkout')]")
+    place_order_button = (By.XPATH, "//a[text()='Place Order']")
+
+    name_on_card = (By.NAME, "name_on_card")
+    card_number = (By.NAME, "card_number")
+    cvc = (By.NAME, "cvc")
+    expiry_month = (By.NAME, "expiry_month")
+    expiry_year = (By.NAME, "expiry_year")
+    pay_and_confirm_button = (By.ID, "submit")  # Replace with exact button locator if different
+
+    order_placed_message = (By.XPATH, "//*[@id='form']/div/div/div/h2/b")
+
+    login_header = (By.XPATH, "//*[contains(text(), 'Register / Login account to proceed on checkout.')]")
