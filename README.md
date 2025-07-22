@@ -40,6 +40,19 @@ It includes HTML test reporting, Jenkins CI integration, and webhook testing via
 9. ✅ Product Search – Valid keyword
 10. ✅ Product Search – No match
 
+
+## ✅ API Test Cases
+
+| Test Case Name                        | Method | Endpoint                   | Description                                         | Expected Outcome                     |
+|--------------------------------------|--------|----------------------------|-----------------------------------------------------|--------------------------------------|
+| `test_verify_login_valid_credentials` | POST   | `/api/login`               | Login using correct email and password              | Status `200 OK`, token in response    |
+| `test_verify_login_missing_email`     | POST   | `/api/login`               | Attempt login with missing email field              | Status `400 Bad Request`, error shown |
+| `test_get_all_products`               | GET    | `/api/products`            | Fetch the complete list of products                 | Status `200 OK`, list of products     |
+| `test_post_search_product`            | POST   | `/api/search`              | Search for a product using a keyword                | Status `200 OK`, relevant product(s)  |
+| `test_get_user_details_by_email`      | GET    | `/api/users?email={email}` | Get user details using query param `email`          | Status `200 OK`, user details returned|
+
+> These tests cover both successful and edge case scenarios to ensure the reliability of the API.
+
 ---
 
 ### 🖥️ **Advanced Selenium Usage**
@@ -115,16 +128,17 @@ Sure! Here's a **bullet-point summary** of the **headless browser setup and scre
 
 ### 🔁 **CI/CD Integration with Jenkins**
 
-* Installed Jenkins and created a test automation job
-* Configured Jenkins to:
+We have implemented a complete CI/CD pipeline using Jenkins to automate the execution and delivery of test results.
 
-  * Pull code
-  * Run PyTest commands
-  * Generate HTML test reports using `pytest-html`
-  * Archive and display test reports
-* Sample `Jenkinsfile` created for pipeline-based execution
+#### 🧪 Jenkins Test Automation Flow
+- Jenkins is installed and configured with a dedicated job for this test suite.
+- The pipeline is designed to:
+  - ✅ Pull the latest test code from the Git repository
+  - ✅ Run all test cases using `pytest`
+  - ✅ Generate **HTML reports** using `pytest-html`
+  - ✅ Archive and display the test reports in Jenkins
+  - ✅ Send test result summaries via email using **Gmail SMTP** (App Password authentication)
 
----
 
 ### 📊 **Test Reporting**
 
