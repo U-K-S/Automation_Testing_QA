@@ -1,5 +1,9 @@
 from pages.base_page import BasePage
 from utilities.locators import CheckoutLocators
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 class CheckoutPage(BasePage):
     def open_homepage(self):
@@ -11,9 +15,32 @@ class CheckoutPage(BasePage):
         self.set(CheckoutLocators.login_password, password)
         self.click(CheckoutLocators.login_button)
 
+
     def add_product_to_cart(self, product_name):
-        self.click(CheckoutLocators.add_to_cart_button(product_name))
-        self.click(CheckoutLocators.view_cart_button)
+        locator = CheckoutLocators.add_to_cart_button(product_name)
+        
+        # Wait for presence
+        element = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(locator)
+        )
+
+        # Scroll into view
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        
+        # Wait a little for any overlays (e.g., ads)
+        self.driver.implicitly_wait(1)
+
+        try:
+            # Try to click normally
+            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(locator)).click()
+        except ElementClickInterceptedException:
+            # If intercepted, do JS click
+            self.driver.execute_script("arguments[0].click();", element)
+
+        # Now click on View Cart
+        view_cart_locator = CheckoutLocators.view_cart_button
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(view_cart_locator)).click()
+
 
     def proceed_to_checkout(self):
         self.click(CheckoutLocators.proceed_to_checkout_button)
