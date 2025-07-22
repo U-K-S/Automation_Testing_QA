@@ -8,7 +8,7 @@ from pytest_html import extras
 @pytest.fixture
 def driver():
     options = Options()
-     # headless mode
+    options.add_argument("--headless")  # headless mode
     options.add_argument('--disable-gpu')
     options.add_argument('--window-size=1920,1080')
 
